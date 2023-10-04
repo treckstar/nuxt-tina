@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import ServerlessHttp from "serverless-http";
 import express, { Router } from "express";
 import { isAuthorized } from "@tinacms/auth";
@@ -5,6 +6,29 @@ import { createMediaHandler } from "next-tinacms-cloudinary/dist/handlers";
 
 const app = express();
 const router = Router();
+
+export const tinaField = (object, property, index) => {
+  let _a, _b, _c;
+  if (object._content_source) {
+    if (!property) {
+      return [
+        (_a = object._content_source) == null ? void 0 : _a.queryId,
+        object._content_source.path.join("."),
+      ].join("---");
+    }
+    if (typeof index === "number") {
+      return [
+        (_b = object._content_source) == null ? void 0 : _b.queryId,
+        [...object._content_source.path, property, index].join("."),
+      ].join("---");
+    }
+    return [
+      (_c = object._content_source) == null ? void 0 : _c.queryId,
+      [...object._content_source.path, property].join("."),
+    ].join("---");
+  }
+  return "";
+};
 
 const mediaHandler = createMediaHandler({
   cloud_name: process.env.NUXT_CLOUDINARY_CLOUD_NAME || "",

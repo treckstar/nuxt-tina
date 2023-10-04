@@ -1,6 +1,9 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <template>
   <main v-if="post" class="post">
-    <h1 class="post__title">{{ post.title }}</h1>
+    <h1 class="post__title" data-tina-field="tinaField(post, 'title')">
+      {{ post.title }}
+    </h1>
     <div class="post__content">
       <ContentDoc />
     </div>
@@ -8,7 +11,10 @@
 </template>
 
 <script setup lang="ts">
+import { useCMS } from "tinacms";
+
 const { path } = useRoute();
+const { tinaField } = useCMS();
 
 // Remove trailing slash before query
 let postPath = path;

@@ -7,7 +7,6 @@ export default defineConfig({
   branch,
   clientId: process.env.NUXT_TINA_CLIENT_ID || "", // Get this from tina.io
   token: process.env.NUXT_TINA_TOKEN || "", // Get this from tina.io
-
   build: {
     outputFolder: "admin",
     publicFolder: "public",
@@ -24,12 +23,51 @@ export default defineConfig({
         name: "post",
         label: "Posts",
         path: "content",
+        ui: {
+          router: ({ document }) => {
+            return `/posts/${document._sys.filename}`;
+          },
+          filename: {
+            slugify: (values) => {
+              const postDate = values.date ? new Date(values.date) : new Date();
+              return `${postDate.toISOString().split("T")[0]}-${(
+                values.slug || ""
+              )
+                .toLowerCase()
+                .replace(/ /g, "-")}`.replace(/[^\w./-\s]/gi, "");
+            },
+          },
+        },
         fields: [
           {
             type: "string",
             name: "title",
             label: "Title",
             isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "slug",
+            label: "Slug",
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "author",
+            label: "Author",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "excerpt",
+            label: "Excerpt",
             required: true,
           },
           {

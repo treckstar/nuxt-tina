@@ -9,9 +9,9 @@
   },
   "private": false,
   "scripts": {
-    "build": "tinacms build && nuxt build",
-    "dev": "tinacms dev -c 'nuxt dev'",
-    "generate": "tinacms build && nuxt generate",
+    "build": "tinacms build --datalayer-port 9009 && nuxt build",
+    "dev": "tinacms dev  --datalayer-port 9008 -c 'nuxt dev'",
+    "generate": "tinacms build  --datalayer-port 9009 && nuxt generate",
     "preview": "nuxt preview",
     "lint": "eslint ."
   },
