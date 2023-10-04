@@ -50,25 +50,21 @@ export default defineConfig({
             type: "string",
             name: "slug",
             label: "Slug",
-            required: true,
           },
           {
             type: "datetime",
             name: "date",
             label: "Date",
-            required: true,
           },
           {
             type: "string",
             name: "author",
             label: "Author",
-            required: true,
           },
           {
             type: "string",
             name: "excerpt",
             label: "Excerpt",
-            required: true,
           },
           {
             type: "rich-text",
